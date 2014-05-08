@@ -1,3 +1,5 @@
+package problems;
+
 public class P026 {
    public static void main(String[] args) {
       int largestCycle = 0;

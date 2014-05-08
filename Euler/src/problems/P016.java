@@ -1,3 +1,5 @@
+package problems;
+
 import java.math.BigInteger;
 
 public class P016 {
