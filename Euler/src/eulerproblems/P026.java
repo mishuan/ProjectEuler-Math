@@ -1,4 +1,4 @@
-package problems;
+package eulerproblems;
 
 public class P026 {
    public static void main(String[] args) {
