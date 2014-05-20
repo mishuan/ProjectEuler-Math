@@ -1,6 +1,5 @@
 package utility;
 
-
 final public class CommonMethods {
 	// change to return bit array to improve run time
 	// All primes are 6n+-1, implement to improve run time
@@ -25,4 +24,19 @@ final public class CommonMethods {
 		}
 		return isPrime;
 	}
+
+	public static boolean isPandigital(long number) {
+		long digits = 0;
+		long counter = 0;
+		while (number > 0) {
+			long temp = digits;
+			digits = digits | 1 << (number % 10) - 1;
+			if (temp == digits)
+				return false;
+			counter++;
+			number /= 10;
+		}
+		return digits == (1 << counter) - 1;
+	}
+
 }
