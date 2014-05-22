@@ -1,4 +1,4 @@
-package problems;
+package eulerproblems;
 
 import static utility.CommonMethods.primeGenerator;
 

@@ -1,4 +1,4 @@
-package problems;
+package eulerproblems;
 
 import java.math.BigInteger;
 import java.util.TreeSet;
