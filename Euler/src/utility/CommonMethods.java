@@ -51,4 +51,13 @@ final public class CommonMethods {
       return true;
    }
 
+   public static int concat(int a, int b) {
+      int c = b;
+      while (c > 0) {
+         a *= 10;
+         c /= 10;
+      }
+      return a + b;
+   }
+
 }
