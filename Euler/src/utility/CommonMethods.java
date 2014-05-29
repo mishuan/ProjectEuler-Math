@@ -82,4 +82,9 @@ final public class CommonMethods {
       }
       return true;
    }
+
+   public static boolean isPentagonal(int n) {
+      double index = (Math.sqrt(24d * n + 1d) + 1d) / 6d;
+      return index == (int) index;
+   }
 }
