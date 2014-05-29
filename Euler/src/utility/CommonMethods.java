@@ -83,8 +83,18 @@ final public class CommonMethods {
       return true;
    }
 
-   public static boolean isPentagonal(int n) {
-      double index = (Math.sqrt(24d * n + 1d) + 1d) / 6d;
+   public static boolean isTriangle(long n) {
+      double index = (Math.sqrt(8 * n + 1) - 1) / 2;
+      return index == (int) index;
+   }
+
+   public static boolean isPentagonal(long n) {
+      double index = (Math.sqrt(24 * n + 1) + 1) / 6;
+      return index == (int) index;
+   }
+
+   public static boolean isHexagonal(long n) {
+      double index = (Math.sqrt(8 * n + 1) + 1) / 4;
       return index == (int) index;
    }
 }
