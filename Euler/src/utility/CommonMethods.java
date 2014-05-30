@@ -1,5 +1,7 @@
 package utility;
 
+import java.util.ArrayList;
+
 
 final public class CommonMethods {
    // change to return bit array to improve run time
@@ -23,6 +25,16 @@ final public class CommonMethods {
          }
       }
       return isPrime;
+   }
+
+   public static ArrayList<Integer> getPrimeList(boolean[] primes) {
+      ArrayList<Integer> primesList = new ArrayList<Integer>();
+      for (int i = 0; i < primes.length; i++) {
+         if (primes[i]) {
+            primesList.add(i);
+         }
+      }
+      return primesList;
    }
 
    public static boolean isPandigital(long number) {
