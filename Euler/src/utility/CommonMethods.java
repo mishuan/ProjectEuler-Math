@@ -4,10 +4,7 @@ import java.util.ArrayList;
 
 
 final public class CommonMethods {
-   // change to return bit array to improve run time
-   // All primes are 6n+-1, implement to improve run time
-   // Create another int array to hold prime values to improve run time
-   static public boolean[] primeGenerator(int limit) throws Exception {
+   static public boolean[] primeGenerator(int limit) {
       boolean[] isPrime = new boolean[limit + 1];
       // Sieve of Eratosthenes
       if (limit >= 2) {
@@ -35,6 +32,23 @@ final public class CommonMethods {
          }
       }
       return primesList;
+   }
+
+   public static int[] getPrimeArray(boolean[] primes) {
+      int entries = 0;
+      for (int i = 0; i < primes.length; i++) {
+         if (primes[i])
+            entries++;
+      }
+      int[] array = new int[entries];
+      entries = 0;
+      for (int i = 0; i < primes.length; i++) {
+         if (primes[i]) {
+            array[entries] = i;
+            entries++;
+         }
+      }
+      return array;
    }
 
    public static boolean isPandigital(long number) {
