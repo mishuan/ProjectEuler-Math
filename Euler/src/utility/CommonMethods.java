@@ -109,6 +109,24 @@ final public class CommonMethods {
       return true;
    }
 
+   public static boolean isPermutation(int a, int b) {
+      int[] array = new int[10];
+      while (a > 0) {
+         array[a % 10]++;
+         a /= 10;
+      }
+      while (b > 0) {
+         array[b % 10]--;
+         b /= 10;
+      }
+      for (int i = 0; i < 10; i++) {
+         if (array[i] != 0)
+            return false;
+      }
+      return true;
+
+   }
+
    public static boolean isTriangle(long n) {
       double index = (Math.sqrt(8 * n + 1) - 1) / 2;
       return index == (int) index;
