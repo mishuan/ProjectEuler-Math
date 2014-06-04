@@ -56,6 +56,5 @@ public class WildCardEditDistance {
          previous = current;
       }
       return variations;
-      // return variations.toArray(new String[] {});
    }
 }
