@@ -18,11 +18,6 @@ public class WildCardEditDistanceTest {
 	}
 
 	@Test
-	public void test() {
-		assertEquals(10, gen.combinations(5, 2));
-	}
-
-	@Test
 	public void testOneDistance() {
 		List<String> array = gen.getVariations("string", 1);
 		assertEquals("strin*", array.toArray()[array.size() - 2]);

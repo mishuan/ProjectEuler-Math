@@ -1,5 +1,6 @@
 package utility;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 
@@ -140,5 +141,30 @@ final public class CommonMethods {
    public static boolean isHexagonal(long n) {
       double index = (Math.sqrt(8 * n + 1) + 1) / 4;
       return index == (int) index;
+   }
+
+   /**
+    * Calculates the combination of 2 integers: int0 C int1
+    * 
+    * @param int0 Left number of the C
+    * @param int1 Right number of the C
+    * @return
+    */
+   public static BigInteger combinations(int int0, int int1) {
+      if (int1 > int0) {
+         throw new IllegalArgumentException("Right side is larger than left side");
+      }
+      if (int1 == 0) {
+         return BigInteger.ONE;
+      }
+      BigInteger temp = BigInteger.ONE;
+      for (int i = int0; i > int1; i--) {
+         temp = temp.multiply(BigInteger.valueOf(i));
+      }
+      BigInteger div = BigInteger.ONE;
+      for (int i = 1; i <= int0 - int1; i++) {
+         div = div.multiply(BigInteger.valueOf(i));
+      }
+      return temp.divide(div);
    }
 }
