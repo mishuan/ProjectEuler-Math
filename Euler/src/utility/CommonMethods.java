@@ -167,4 +167,13 @@ final public class CommonMethods {
       }
       return temp.divide(div);
    }
+
+   public static int digitSum(BigInteger n) {
+      char[] digits = n.toString().toCharArray();
+      int sum = 0;
+      for (int i = 0; i < digits.length; i++) {
+         sum += digits[i] - '0';
+      }
+      return sum;
+   }
 }
