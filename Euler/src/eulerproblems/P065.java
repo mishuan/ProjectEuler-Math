@@ -10,7 +10,6 @@ public class P065 {
       BigInteger n1 = BigInteger.valueOf(1);
       BigInteger n2 = BigInteger.valueOf(2);
       BigInteger n3 = BigInteger.ZERO;
-      int digitSum = 0;
       for (int i = 2; i <= 100; i++) {
          BigInteger temp = n2;
          int k = i % 3 == 0 ? (i / 3) * 2 : 1;
