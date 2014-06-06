@@ -176,4 +176,15 @@ final public class CommonMethods {
       }
       return sum;
    }
+
+   public static BigInteger reverseNumber(BigInteger number) {
+      BigInteger reversed = BigInteger.ZERO;
+      BigInteger k = number;
+
+      while (k.compareTo(BigInteger.ZERO) > 0) {
+         reversed = reversed.multiply(BigInteger.TEN).add(k.mod(BigInteger.TEN));
+         k = k.divide(BigInteger.TEN);
+      }
+      return reversed;
+   }
 }
