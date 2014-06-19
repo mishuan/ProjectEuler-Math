@@ -143,13 +143,6 @@ final public class CommonMethods {
       return index == (int) index;
    }
 
-   /**
-    * Calculates the combination of 2 integers: int0 C int1
-    * 
-    * @param int0 Left number of the C
-    * @param int1 Right number of the C
-    * @return
-    */
    public static BigInteger combinations(int int0, int int1) {
       if (int1 > int0) {
          throw new IllegalArgumentException("Right side is larger than left side");
@@ -184,6 +177,24 @@ final public class CommonMethods {
       while (k.compareTo(BigInteger.ZERO) > 0) {
          reversed = reversed.multiply(BigInteger.TEN).add(k.mod(BigInteger.TEN));
          k = k.divide(BigInteger.TEN);
+      }
+      return reversed;
+   }
+
+   static public int reverseNumber(int number) {
+      int reversed = 0;
+      while (number > 0) {
+         reversed = 10 * reversed + number % 10;
+         number /= 10;
+      }
+      return reversed;
+   }
+
+   static public long reverseNumber(long number) {
+      long reversed = 0;
+      while (number > 0) {
+         reversed = 10 * reversed + number % 10;
+         number /= 10;
       }
       return reversed;
    }
