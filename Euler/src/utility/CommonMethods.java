@@ -259,4 +259,14 @@ final public class CommonMethods {
 
       return d;
    }
+
+   public static int[] EncryptDecrypt(int[] message, int[] key) {
+      int messageLength = message.length;
+      int[] newMessage = new int[message.length];
+      int keyLength = key.length;
+      for (int i = 0; i < messageLength; i++) {
+         newMessage[i] = message[i] ^ key[i % keyLength];
+      }
+      return newMessage;
+   }
 }
