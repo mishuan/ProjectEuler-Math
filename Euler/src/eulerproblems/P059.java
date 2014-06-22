@@ -1,5 +1,7 @@
 package eulerproblems;
 
+import utility.CommonMethods;
+
 public class P059 {
 
    public static void main(String[] args) {
@@ -46,5 +48,22 @@ public class P059 {
                   10, 2, 28, 23, 73, 79, 37, 9, 11, 68, 16, 10, 68, 15, 14, 18, 2, 79, 23, 2, 10, 10, 71, 7, 13, 20, 79, 3,
                   11, 0, 22, 30, 67, 68, 19, 7, 1, 71, 8, 8, 8, 29, 29, 71, 0, 2, 71, 27, 12, 2, 79, 11, 9, 3, 29, 71, 60,
                   11, 9, 79, 11, 1, 79, 16, 15, 10, 68, 33, 14, 16, 15, 10, 22, 73};
+      for (int i = 97; i < 123; i++) {
+         for (int j = 97; j < 123; j++) {
+            for (int k = 97; k < 123; k++) {
+               int[] key = {i, j, k};
+               int[] message = CommonMethods.EncryptDecrypt(encrypted, key);
+               int length = message.length;
+               StringBuilder string = new StringBuilder(length);
+               for (int l = 0; l < length; l++)
+                  string.append((char) message[l]);
+               if (string.toString().contains("the") && string.toString().contains("is")
+                     && string.toString().contains("are")
+                     && (string.toString().contains("his") || string.toString().contains("him"))) {
+                  System.out.println((char) key[0] + " " + (char) key[1] + " " + (char) key[2]);
+               }
+            }
+         }
+      }
    }
 }
