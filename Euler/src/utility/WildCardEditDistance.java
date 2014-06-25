@@ -10,16 +10,7 @@ import java.util.List;
  * @author Michael Yuan
  * 
  */
-// TODO: Add encryption/decryption methods
 public class WildCardEditDistance {
-
-   /**
-    * Default empty constructor
-    */
-   public WildCardEditDistance() {
-
-   }
-
    /**
     * Method used to generate the derivatives of a string given a defined number of wild cards
     * 
@@ -27,7 +18,7 @@ public class WildCardEditDistance {
     * @param wildcards the desired wild cards
     * @return an array of variations given the specified parameters
     */
-   public List<String> getVariations(String string, int wildcards) {
+   public static List<String> getVariations(String string, int wildcards) {
       if (wildcards > string.length()) {
          throw new IllegalArgumentException("Wild card input is larger than string length");
       }
