@@ -21,7 +21,7 @@ public class P043 {
          if (complete) {
             long multiplier = 1;
             for (long i = 9; i >= 0; i--) {
-               sum += digits[(int)i] * multiplier;
+               sum += digits[(int) i] * multiplier;
                multiplier *= 10;
             }
          }
