@@ -1,5 +1,9 @@
 package utility;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.LineNumberReader;
 import java.math.BigInteger;
 import java.util.ArrayList;
 
@@ -270,4 +274,16 @@ final public class CommonMethods {
       return newMessage;
    }
 
+   public static String[] fileToStringArray(String file) throws IOException {
+      LineNumberReader lnr = new LineNumberReader(new FileReader(file));
+      lnr.skip(Long.MAX_VALUE);
+      int lines = lnr.getLineNumber();
+      lnr.close();
+      BufferedReader bc_br = new BufferedReader(new FileReader(file));
+      String[] data = new String[lines];
+      for (int i = 0; i < lines; i++)
+         data[i] = bc_br.readLine();
+      bc_br.close();
+      return data;
+   }
 }
