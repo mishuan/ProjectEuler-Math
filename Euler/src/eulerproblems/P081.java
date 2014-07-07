@@ -20,15 +20,29 @@ public class P081 {
       }
       Queue<Integer[]> queue = new PriorityQueue<Integer[]>(6400, arrayComparator);
       Integer[] pushArray1 = new Integer[3];
+      Integer[] pushArray2 = new Integer[3];
       pushArray1[0] = 0;
       pushArray1[1] = 0;
       pushArray1[2] = matrix[0][0];
       queue.add(pushArray1);
       while (true) {
          Integer[] poppedArray = queue.poll();
+         System.out.println(poppedArray[2]);
          if (poppedArray[0] == 79 && poppedArray[1] == 79) {
             System.out.println(poppedArray[2]);
             break;
+         }
+         if (poppedArray[0] < 79) {
+            pushArray1[0] = poppedArray[0] + 1;
+            pushArray1[1] = poppedArray[1];
+            pushArray1[2] = poppedArray[2] + matrix[pushArray1[0]][pushArray1[1]];
+            queue.add(pushArray1);
+         }
+         if (poppedArray[1] < 79) {
+            pushArray2[0] = poppedArray[0];
+            pushArray2[1] = poppedArray[1] + 1;
+            pushArray2[2] = poppedArray[2] + matrix[pushArray2[0]][pushArray2[1]];
+            queue.add(pushArray2);
          }
       }
    }
