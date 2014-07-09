@@ -9,6 +9,7 @@ import utility.CommonMethods;
 
 public class P083 {
    public static void main(String[] args) throws IOException {
+      long init = System.nanoTime();
       String[] rawData = CommonMethods.fileToStringArray("matrix");
       int[][] matrix = new int[80][80];
       for (int i = 0; i < 80; i++) {
@@ -53,8 +54,27 @@ public class P083 {
                queue.add(pushArray);
             }
          }
-         //TODO: two more if statements and we gucci
+         if (poppedArray[0] > 0) {
+            pushArray = new Integer[3];
+            pushArray[0] = poppedArray[0] - 1;
+            pushArray[1] = poppedArray[1];
+            if (matrix[pushArray[0]][pushArray[1]] > 0) {
+               pushArray[2] = poppedArray[2] + matrix[pushArray[0]][pushArray[1]];
+               queue.add(pushArray);
+            }
+         }
+
+         if (poppedArray[1] > 0) {
+            pushArray = new Integer[3];
+            pushArray[0] = poppedArray[0];
+            pushArray[1] = poppedArray[1] - 1;
+            if (matrix[pushArray[0]][pushArray[1]] > 0) {
+               pushArray[2] = poppedArray[2] + matrix[pushArray[0]][pushArray[1]];
+               queue.add(pushArray);
+            }
+         }
       }
+      System.out.println(System.nanoTime() - init);
    }
 
    public static Comparator<Integer[]> arrayComparator = new Comparator<Integer[]>() {
