@@ -18,10 +18,10 @@ public class SudokuSearch {
       if (recurse(problem, 0)) {
          return solution;
       }
-      return problem;
+      return "Solution not found";
    }
 
-   public boolean recurse(String problem, int i) {
+   private boolean recurse(String problem, int i) {
       if (i == emptyEntries.size()) {
          solution = problem;
          return true;
@@ -44,15 +44,15 @@ public class SudokuSearch {
       return false;
    }
 
-   public boolean sameRow(int i, int j) {
+   private boolean sameRow(int i, int j) {
       return i / 9 == j / 9;
    }
 
-   public boolean sameCol(int i, int j) {
+   private boolean sameCol(int i, int j) {
       return (i - j) % 9 == 0;
    }
 
-   public boolean sameBlock(int i, int j) {
+   private boolean sameBlock(int i, int j) {
       return i / 27 == j / 27 && i % 9 / 3 == j % 9 / 3;
    }
 }
