@@ -28,15 +28,34 @@ public class P107 {
       int count = 0;
       int totalDistance = 0;
       Integer[] poppedNode;
-
-      while (count < 50) {
+      // Prim's algorithm
+      while (count < dimension) {
          poppedNode = queue.poll();
-         if (visited[poppedNode[0]] == true)
+
+         int position = poppedNode[0];
+         if (visited[position] == true)
             continue;
-         // Prim's algorithm
+
+         visited[position] = true;
+         totalDistance += poppedNode[1];
+         for (int i = 0; i < dimension; i++) {
+            int cost = matrix[position][i];
+            if (matrix[position][i] == 0 || visited[i])
+               continue;
+            pushNode = new Integer[2];
+            pushNode[0] = i;
+            pushNode[1] = cost;
+            queue.add(pushNode);
+         }
          count++;
       }
-      System.out.println(totalDistance);
+      int original = 0;
+      for (int[] i : matrix) {
+         for (int j : i) {
+            original += j;
+         }
+      }
+      System.out.println(original / 2 - totalDistance);
       System.out.println(System.nanoTime() - init);
    }
 
