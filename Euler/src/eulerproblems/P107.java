@@ -40,7 +40,7 @@ public class P107 {
          totalDistance += poppedNode[1];
          for (int i = 0; i < dimension; i++) {
             int cost = matrix[position][i];
-            if (matrix[position][i] == 0 || visited[i])
+            if (cost == 0 || visited[i])
                continue;
             pushNode = new Integer[2];
             pushNode[0] = i;
