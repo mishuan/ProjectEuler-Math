@@ -286,4 +286,13 @@ final public class CommonMethods {
       bc_br.close();
       return data;
    }
+
+   public static BigInteger findFibonacci(int positionInSequence) {
+      return BigInteger.ZERO;
+   }
+
+   public static BigInteger[] getFibonacciSequence(int position) {
+      BigInteger[] sequence = new BigInteger[position];
+      return sequence;
+   }
 }
