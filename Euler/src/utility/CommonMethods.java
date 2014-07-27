@@ -287,12 +287,7 @@ final public class CommonMethods {
       return data;
    }
 
-   public static BigInteger findFibonacci(int positionInSequence) {
-      return BigInteger.ZERO;
-   }
-
-   public static BigInteger[] getFibonacciSequence(int position) {
-      BigInteger[] sequence = new BigInteger[position];
-      return sequence;
+   public static BigInteger getNextFib(BigInteger f0, BigInteger f1) {
+      return f0.add(f1);
    }
 }
