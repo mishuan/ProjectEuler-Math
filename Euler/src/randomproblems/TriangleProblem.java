@@ -8,9 +8,7 @@ import utility.CommonMethods;
 /**
  * Find the number of triangles in a file:
  * 
- * ooxoo 
- * oxxxo 
- * xxxxx
+ * ooxoo oxxxo xxxxx
  * 
  * Constitutes a triangle. Count upwards and upside down triangles.
  * 
@@ -33,17 +31,15 @@ public class TriangleProblem {
             if (n != 0) {
                rowCounter++;
                counter++;
-               // this check could be avoided for certain cases, reducing run time
-               // too lazy to implement
-               if (j == 0 || j == size - 1 || i == size - 1)
-                  continue;
-               values.add(new Integer[] {i, j});
+               if (j != 0 && j != size - 1 && i != size - 1)
+                  values.add(new Integer[] {i, j});
             } else {
                rowCounter = 0;
             }
             matrix[i][j] = rowCounter;
          }
       }
+
       System.out.println("Matrix generation: " + (System.nanoTime() - init));
       int maxHeight = (size + 1) / 2;
       for (int h = 1; h < maxHeight; h++) {
@@ -52,12 +48,10 @@ public class TriangleProblem {
             int baseValue = (h + 1) * 2 - 1;
             int baseY = curr[0] + h;
             int baseX = curr[1] + h;
-
             if (matrix[baseY][baseX] >= baseValue) {
                counter++;
-               if (baseX <= h || baseX >= size - h - 1 || baseY >= size - h - 1)
-                  continue;
-               newValues.add(curr);
+               if (curr[1] > h && curr[1] < size - h - 1 && curr[0] < size - h - 1)
+                  newValues.add(curr);
             }
          }
          values = newValues;
