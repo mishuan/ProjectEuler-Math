@@ -1,7 +1,10 @@
 package utility;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.math.BigInteger;
@@ -289,5 +292,23 @@ final public class CommonMethods {
 
    public static BigInteger getNextFib(BigInteger f0, BigInteger f1) {
       return f0.add(f1);
+   }
+
+   public static void writeFile(String filename, String content, boolean append) {
+      // Write to the file
+      try {
+         File file = new File(filename);
+         if (!file.exists()) {
+            file.createNewFile();
+         }
+
+         FileWriter fw = new FileWriter(file.getAbsoluteFile(), append);
+         BufferedWriter bw = new BufferedWriter(fw);
+         bw.write(content);
+         bw.close();
+
+      } catch (IOException e) {
+         e.getStackTrace();
+      }
    }
 }

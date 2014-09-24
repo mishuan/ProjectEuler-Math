@@ -1,7 +1,8 @@
 package utility.test;
 
 import static org.junit.Assert.assertEquals;
-import static utility.CommonMethods.*;
+import static utility.CommonMethods.combinations;
+import static utility.CommonMethods.primeGenerator;
 
 import java.math.BigInteger;
 
