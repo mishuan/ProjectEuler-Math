@@ -8,7 +8,9 @@ import utility.CommonMethods;
 /**
  * Find the number of triangles in a file:
  * 
- * ooxoo oxxxo xxxxx
+ * ooxoo 
+ * oxxxo 
+ * xxxxx
  * 
  * Constitutes a triangle. Count upwards and upside down triangles.
  * 
@@ -60,38 +62,3 @@ public class TriangleProblem {
       System.out.println(counter);
    }
 }
-// original implementation
-// {
-// int[][] triangleCounter = new int[size][size];
-// int counter = 0;
-// List<Integer[]> values = new ArrayList<Integer[]>(2000000);
-// for (int i = 0; i < size; i++) {
-// for (int j = 1; j < size - 1; j++) {
-// if (matrix[i][j] != 0) {
-// triangleCounter[i][j] = 1;
-// counter++;
-// }
-// }
-// }
-// int maxHeight = (size + 1) / 2;
-// for (int h = 1; h < maxHeight; h++) {
-// for (int i = 0; i < size; i++) {
-// int baseY = i + h;
-// if (baseY >= size)
-// break;
-//
-// for (int j = 1; j < size - 1; j++) {
-// int baseX = j + h;
-// if (baseX >= size)
-// break;
-//
-// int base = 2 * h - 1;
-// if (triangleCounter[i][j] == h && matrix[baseY][baseX] >= base) {
-// triangleCounter[i][j]++;
-// counter++;
-// }
-// }
-// }
-// }
-// }
-
