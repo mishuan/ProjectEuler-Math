@@ -1,4 +1,4 @@
-package randomproblems;
+package hackerrank;
 
 
 public final class LookAndSay {
