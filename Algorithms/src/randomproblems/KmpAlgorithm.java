@@ -37,7 +37,6 @@ public class KmpAlgorithm {
                i++;
          }
       }
-      System.out.println();
       return matches;
    }
 
@@ -46,7 +45,7 @@ public class KmpAlgorithm {
          System.out.print(i + " ");
 
       System.out.println();
-      System.out.print("A A B A A C A A D A A B A A A B A A");
+      System.out.println("A A B A A C A A D A A B A A A B A A");
       for (Integer i : kmpFind("AABAACAADAABAAABAA", "AABA"))
          System.out.print(i + " ");
    }
