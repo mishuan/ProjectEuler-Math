@@ -51,27 +51,99 @@ public class RecursionProblems {
    }
 
    // find all upper/lower cases variation of a string
-   public static void getPermutations(char[] c, String prefix, int n) {
+   public static void getUpperLowerCasePermutations(char[] c, String prefix, int n) {
       char temp = Character.toUpperCase(c[n - 1]);
       if (n == c.length) {
 
          System.out.println(prefix + temp);
          System.out.println(prefix + c[n - 1]);
       } else {
-         getPermutations(c, prefix + temp, n + 1);
-         getPermutations(c, prefix + c[n - 1], n + 1);
+         getUpperLowerCasePermutations(c, prefix + temp, n + 1);
+         getUpperLowerCasePermutations(c, prefix + c[n - 1], n + 1);
       }
    }
 
+   // find all permutations of 1 2 3 that add up to n
+   public static void findPointsPermutations(String combo, int curr, int n) {
+      if (n == curr)
+         System.out.println(combo);
+      if (curr + 1 <= n) {
+         findPointsPermutations(combo + 1 + " ", curr + 1, n);
+      }
+      if (curr + 2 <= n) {
+         findPointsPermutations(combo + 2 + " ", curr + 2, n);
+      }
+      if (curr + 3 <= n) {
+         findPointsPermutations(combo + 3 + " ", curr + 3, n);
+      }
+   }
+
+   // find operand permutation without duplicates ie 3 -> 1+2, 1+1+1
+   public static void findOperandPermutations(String s, int curr, int n, int max) {
+      if (curr == n)
+         System.out.println(s);
+      while (true) {
+         if (curr + max <= n)
+            findOperandPermutations(s + max + " ", curr + max, n, max);
+         else
+            break;
+         max++;
+      }
+   }
+
+   // recursively check if number is palindrome
+   public static boolean isPalindrome(String s) {
+      int length = s.length();
+
+      if (length < 2)
+         return true;
+
+      if (s.charAt(0) == s.charAt(length - 1))
+         return isPalindrome(s.substring(1, length - 1));
+
+      return false;
+   }
+
+   public static int[] seq;
+
+   public static int fib(int n) {
+      if (seq[n - 1] == 0)
+         fib(n - 1);
+      if (seq[n - 2] == 0)
+         fib(n - 2);
+      seq[n] = seq[n - 1] + seq[n - 2];
+      return seq[n];
+   }
+
+   public static int nthFib(int n) {
+      seq = new int[n + 1];
+      seq[0] = 1;
+      seq[1] = 1;
+      return fib(n);
+   }
+
    public static void main(String[] args) {
-      String s = "1234";
-      findPermutations(s.toCharArray(), 0, s.length() - 1);
-      ArrayList<String> stringList = getPermutations(s.toCharArray(), 0, s.length() - 1);
-      System.out.println(stringList);
+      // String s = "1234";
+      // findPermutations(s.toCharArray(), 0, s.length() - 1);
+      // ArrayList<String> stringList = getPermutations(s.toCharArray(), 0, s.length() - 1);
+      // System.out.println(stringList);
 
-      System.out.println(multiply(2, 5));
+      // System.out.println(multiply(2, 5));
 
-      s = "abc";
-      getPermutations(s.toLowerCase().toCharArray(), "", 1);
+      // s = "abc";
+      // getUpperLowerCasePermutations(s.toLowerCase().toCharArray(), "", 1);
+
+      findPointsPermutations("", 0, 5);
+      System.out.println("NO DUPLICATES: ");
+      findOperandPermutations("", 0, 5, 1);
+
+      // System.out.println(isPalindrome("121"));
+      // System.out.println(isPalindrome("123321"));
+      // System.out.println(isPalindrome("12431"));
+      // System.out.println(isPalindrome("122341"));
+
+      // System.out.println(nthFib(10));
+      // for (int i : seq)
+      // System.out.print(i + " ");
    }
 }
