@@ -10,26 +10,8 @@ public class DortmundDilemma {
 
    public static int possibleNames(int N, int K) {
       long total = 0;
-      long currPower = 1;
-      for (int i = 1; i <= N / 2; i++) {
-         currPower = (currPower * K) % MOD_CONST_LONG;
-         int middleDigits = N - 2 * i;
-         long currTotal = 1;
-         // calculate middle digit possibilities
-         if (middleDigits != 0) {
-            if (middleDigits > 1) {
-               for (int j = 1; j < middleDigits; j++)
-                  currTotal = (currTotal * K) % MOD_CONST_LONG;
-               currTotal *= K - 1;
-            } else
-               currTotal = K;
-         }
-         //find total possibilities
-         currTotal = (currTotal * currPower) % MOD_CONST_LONG;
-         total += currTotal;
-      }
-      total = (total % MOD_CONST_LONG) * combs[K];
-      return (int) (total % MOD_CONST_LONG);
+
+      return (int) (total);
    }
 
    public static int combinations(int int0, int int1) {
