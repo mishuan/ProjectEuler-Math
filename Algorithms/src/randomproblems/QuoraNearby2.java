@@ -1,32 +1,28 @@
 package randomproblems;
 
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.Scanner;
-import java.util.TreeSet;
 
-public class QuoraNearby {
+// Round two
+public class QuoraNearby2 {
    // Topic data structure
    static public class Topic {
       double x;
       double y;
-      TreeSet<Integer> questions = new TreeSet<Integer>(Collections.reverseOrder());
-      public Topic(double x, double y) {
+      int[] questions;
+      int pointer = 0;
+
+      public Topic(double x, double y, int nQ) {
          this.x = x;
          this.y = y;
+         questions = new int[nQ];
       }
-      public void addQuestion(int n) {
-         questions.add(n);
-      }
-      public TreeSet<Integer> getQuestions() {
-         return questions;
-      }
-      public double getX() {
-         return x;
-      }
-      public double getY() {
-         return y;
+
+      public void append(int i) {
+         questions[pointer] = i;
+         pointer++;
       }
    }
 
@@ -46,13 +42,12 @@ public class QuoraNearby {
       public int compare(TopicDistancePair p1, TopicDistancePair p2) {
          double d1 = p1.distance;
          double d2 = p2.distance;
-
          if (d1 == d2)
             return p1.topic > p2.topic ? 1 : -1;
          else if (d1 < d2)
-            return 1;
-         else
             return -1;
+         else
+            return 1;
       }
    }
 
@@ -66,21 +61,21 @@ public class QuoraNearby {
    }
 
    // print results given query type
-   static String printResults(String queryType, int numResults, TreeSet<TopicDistancePair> distances) {
+   static String findResults(String queryType, int numResults, TopicDistancePair[] distances) {
       String returnString = "";
       char type = queryType.charAt(0);
+      Arrays.sort(distances, new DistanceComparator());
       if (type == 't') {
-         for (int i = 0; i < numResults; i++) {
-            returnString += distances.pollLast().topic + " ";
-         }
+         for (int i = 0; i < numResults; i++)
+            returnString += distances[i].topic + " ";
       } else if (type == 'q') {
          LinkedHashSet<Integer> questionSet = new LinkedHashSet<Integer>();
-         int setSize = distances.size();
+         int setSize = distances.length;
          loop: for (int i = 0; i < setSize; i++) {
-            int topicId = distances.pollLast().topic;
-            TreeSet<Integer> questions = topics[topicId].getQuestions();
-            for (int q : questions) {
-               questionSet.add(q);
+            int topicId = distances[i].topic;
+            int[] questions = topics[topicId].questions;
+            for (int j = topics[topicId].pointer - 1; j >= 0; j--) {
+               questionSet.add(questions[j]);
                if (questionSet.size() == numResults)
                   break loop;
             }
@@ -105,14 +100,14 @@ public class QuoraNearby {
       topics = new Topic[nT];
       for (int i = 0; i < nT; i++) {
          in.nextInt();
-         topics[i] = new Topic(in.nextDouble(), in.nextDouble());
+         topics[i] = new Topic(in.nextDouble(), in.nextDouble(), nQ);
       }
       // Add questions to topics
       for (int i = 0; i < nQ; i++) {
          in.nextInt();
          int numCategories = in.nextInt();
          for (int j = 0; j < numCategories; j++) {
-            topics[in.nextInt()].addQuestion(i);
+            topics[in.nextInt()].append(i);
          }
       }
       // Run queries
@@ -123,12 +118,12 @@ public class QuoraNearby {
          int numResults = Integer.valueOf(params[1]);
          double x = Double.valueOf(params[2]);
          double y = Double.valueOf(params[3]);
-         TreeSet<TopicDistancePair> distances = new TreeSet<TopicDistancePair>(new DistanceComparator());
+         TopicDistancePair[] distances = new TopicDistancePair[nT];
          for (int j = 0; j < nT; j++) {
             TopicDistancePair pair = new TopicDistancePair(j, computeDistance(j, x, y));
-            distances.add(pair);
+            distances[j] = pair;
          }
-         System.out.println(printResults(params[0], numResults, distances));
+         System.out.println(findResults(params[0], numResults, distances));
       }
       System.out.println(System.currentTimeMillis() - init);
    }
