@@ -6,9 +6,9 @@ public class KnapsackProblem {
       int[][] grid = new int[numOfItems + 1][maxWeight + 1];
 
       for (int i = 0; i < numOfItems; i++) {
+         int currWeight = items[i][0];
+         int currValue = items[i][1];
          for (int j = 0; j < maxWeight + 1; j++) {
-            int currWeight = items[i][0];
-            int currValue = items[i][1];
             int prevValue = j - currWeight < 0 ? 0 : grid[i][j - currWeight] + currValue;
 
             grid[i + 1][j] = Math.max(grid[i][j], prevValue);
