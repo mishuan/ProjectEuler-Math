@@ -1,4 +1,5 @@
 require 'set'
+
 class Hanoi
   OPTIONS = ['0','1','2']
   def self.dfs_solve(state, goal, length)
@@ -23,20 +24,6 @@ class Hanoi
         end
       end
     end
-  end
-
-  def self.bfs_solve(state, goal, length)
-    @state_set = Set.new([state]) unless @state_set 
-
-    puts state
-
-    if state.eql?(goal)
-      @state_set = nil
-      return true
-    end
-
-    
-
   end
 end
 
