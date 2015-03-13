@@ -13,8 +13,27 @@ public class SubtreesAndPaths {
 	static int[] vals;
 	static ArrayList<Integer> rents;
 
-	public static int search() {
-		return 0;
+	public static int search(int start, int end) {
+		rents = new ArrayList<Integer>();
+		return dfs(start, start, end, vals[start]);
+	}
+
+	public static int dfs(int p, int n, int d, int max) {
+		if (n == d)
+			return Math.max(max, vals[d]);
+		else if (relations[d][n] != -1)
+			return dfs(n, relations[d][n], d, Math.max(max, vals[n]));
+		else if (relations[n][d] != -1)
+			return dfs(d, relations[n][d], n, Math.max(max, vals[d]));
+		else {
+			for (int i = 0; i < numNodes; i++) {
+				if (matrix[n][i] == true && i != p) {
+					relations[p][i] = n;
+					return dfs(n, i, d, Math.max(max, vals[n]));
+				}
+			}
+			return 0;
+		}
 	}
 
 	public static void addValue(int n, int v) {
@@ -28,10 +47,8 @@ public class SubtreesAndPaths {
 		rents.add(curr);
 		for (int i = 0; i < numNodes; i++) {
 			if (matrix[curr][i] == true && i != parent) {
-				for (int p : rents) {
+				for (int p : rents)
 					relations[p][i] = curr;
-					System.out.println("p = " + p + " i = " + i + " curr = " + curr);
-				}
 				build(i, curr);
 				rents.remove(rents.size() - 1);
 			}
@@ -62,10 +79,17 @@ public class SubtreesAndPaths {
 			matrix[y][x] = true;
 		}
 
-		printArray(matrix);
+		for (int i = 0; i < numNodes; i++)
+			for (int j = 0; j < numNodes; j++)
+				relations[i][j] = -1;
+
 		constructTree();
-		printArray(tree);
-		printArray(relations);
+
+		if (TEST) {
+			printArray(matrix);
+			printArray(tree);
+			printArray(relations);
+		}
 
 		in.nextLine();
 		numQueries = in.nextInt();
@@ -73,13 +97,11 @@ public class SubtreesAndPaths {
 
 		for (int i = 0; i < numQueries; i++) {
 			String[] params = in.nextLine().split(" ");
-
 			if (params[0].equals("add")) {
 				addValue(Integer.valueOf(params[1]) - 1, Integer.valueOf(params[2]));
-				printArray(vals);
-			} else {
-				// System.out.println(search());
-			}
+			} else
+				System.out.println(search(Integer.valueOf(params[1]) - 1,
+						Integer.valueOf(params[2]) - 1));
 		}
 	}
 
