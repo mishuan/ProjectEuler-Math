@@ -2,7 +2,7 @@ package randomproblems;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
+//WARNING: this is not optimal or even good
 public class SubtreesAndPaths {
 
 	static boolean[][] matrix;
