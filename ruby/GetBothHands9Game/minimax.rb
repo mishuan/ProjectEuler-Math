@@ -1,6 +1,6 @@
 require 'set'
 
-class AlphaBeta
+class Minimax
 
   def initialize
     @state_set = Set.new
@@ -12,7 +12,7 @@ class AlphaBeta
     scores = []
 
     print "next_states = #{next_states} \n"
-    
+
     if goal_state?(state)
       return score(state)
     end
@@ -57,6 +57,7 @@ class AlphaBeta
     elsif state[2] == 9 && state[3] == 9
       -1
     end
+    0
   end
 
   def successor_states(state, player)
@@ -89,5 +90,5 @@ class AlphaBeta
   end
 end
 
-ab = AlphaBeta.new
+ab = Minimax.new
 puts ab.solve([1,1,1,1], 0)
