@@ -11,15 +11,20 @@ class AlphaBeta
     next_states = successor_states(state, player)
     scores = []
 
-    if goal_state?
+    print "next_states = #{next_states} \n"
+    
+    if goal_state?(state)
       return score(state)
-
+    end
+    
     for s in next_states
       rearrage_state(s)
       unless checked? s
         scores << solve(s, (player + 1) % 2)
       end
     end
+
+    print "state = #{state}, scores = #{scores} \n"
 
     if scores.any?    
       if player == 0
@@ -29,6 +34,7 @@ class AlphaBeta
       end
     else
       return 0
+    end
   end
 
   def goal_state?(state)
@@ -38,6 +44,7 @@ class AlphaBeta
       true
     else
       false
+    end
   end
 
   def checked?(state)
@@ -46,24 +53,24 @@ class AlphaBeta
 
   def score(state)
     if state[0] == 9 && state[1] == 9
-      10
+      1
     elsif state[2] == 9 && state[3] == 9
-      -10
+      -1
     end
   end
 
   def successor_states(state, player)
     next_states = []
     if player == 0
-      next_states << ([state[0] + state[2], state[1], state[2], state[3]])
-      next_states << ([state[0] + state[3], state[1], state[2], state[3]])
-      next_states << ([state[0], state[1] + state[2], state[2], state[3]])
-      next_states << ([state[0], state[1] + state[3], state[2], state[3]])
-    else
-      next_states << ([state[0], state[1], state[2] + state[0], state[3]])
-      next_states << ([state[0], state[1], state[2] + state[1], state[3]])
-      next_states << ([state[0], state[1], state[2], state[3] + state[0]])
-      next_states << ([state[0], state[1], state[2], state[3] + state[1]])      
+      next_states << [(state[0] + state[2]) % 10, state[1], state[2], state[3]]
+      next_states << [(state[0] + state[3]) % 10, state[1], state[2], state[3]]
+      next_states << [state[0], (state[1] + state[2]) % 10, state[2], state[3]]
+      next_states << [state[0], (state[1] + state[3]) % 10, state[2], state[3]]
+    elsif player == 1
+      next_states << [state[0], state[1], (state[2] + state[0]) % 10, state[3]]
+      next_states << [state[0], state[1], (state[2] + state[1]) % 10, state[3]]
+      next_states << [state[0], state[1], state[2], (state[3] + state[0]) % 10]
+      next_states << [state[0], state[1], state[2], (state[3] + state[1]) % 10]     
     end
     next_states
   end
@@ -83,6 +90,4 @@ class AlphaBeta
 end
 
 ab = AlphaBeta.new
-puts ab.checked?(2)
-print ab.successor_states([1,2,3,4], 0)
-print ab.successor_states([1,2,3,4], 1)
+puts ab.solve([1,1,1,1], 0)
