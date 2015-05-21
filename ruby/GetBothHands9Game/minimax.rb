@@ -6,9 +6,9 @@ class Minimax
     @state_set = Set.new
   end
 
-  def solve(state, player)
+  def solve(state)
     @state_set << state
-    next_states = successor_states(state, player)
+    next_states = successor_states(state)
     scores = []
 
     print "next_states = #{next_states} \n"
@@ -20,16 +20,16 @@ class Minimax
     for s in next_states
       rearrage_state(s)
       unless checked? s
-        scores << solve(s, (player + 1) % 2)
+        scores << solve(s)
       end
     end
 
     print "state = #{state}, scores = #{scores} \n"
 
     if scores.any?    
-      if player == 0
+      if state[4] == 0
         return scores.max
-      elsif player == 1
+      elsif state[4] == 1
         return scores.min
       end
     else
@@ -60,18 +60,18 @@ class Minimax
     0
   end
 
-  def successor_states(state, player)
+  def successor_states(state)
     next_states = []
-    if player == 0
-      next_states << [(state[0] + state[2]) % 10, state[1], state[2], state[3]]
-      next_states << [(state[0] + state[3]) % 10, state[1], state[2], state[3]]
-      next_states << [state[0], (state[1] + state[2]) % 10, state[2], state[3]]
-      next_states << [state[0], (state[1] + state[3]) % 10, state[2], state[3]]
-    elsif player == 1
-      next_states << [state[0], state[1], (state[2] + state[0]) % 10, state[3]]
-      next_states << [state[0], state[1], (state[2] + state[1]) % 10, state[3]]
-      next_states << [state[0], state[1], state[2], (state[3] + state[0]) % 10]
-      next_states << [state[0], state[1], state[2], (state[3] + state[1]) % 10]     
+    if state[4] == 0
+      next_states << [(state[0] + state[2]) % 10, state[1], state[2], state[3], 1]
+      next_states << [(state[0] + state[3]) % 10, state[1], state[2], state[3], 1]
+      next_states << [state[0], (state[1] + state[2]) % 10, state[2], state[3], 1]
+      next_states << [state[0], (state[1] + state[3]) % 10, state[2], state[3], 1]
+    elsif state[4] == 1
+      next_states << [state[0], state[1], (state[2] + state[0]) % 10, state[3], 0]
+      next_states << [state[0], state[1], (state[2] + state[1]) % 10, state[3], 0]
+      next_states << [state[0], state[1], state[2], (state[3] + state[0]) % 10, 0]
+      next_states << [state[0], state[1], state[2], (state[3] + state[1]) % 10, 0]     
     end
     next_states
   end
@@ -91,4 +91,5 @@ class Minimax
 end
 
 ab = Minimax.new
-puts ab.solve([1,1,1,1], 0)
+
+puts ab.solve([1,1,1,1,0])
