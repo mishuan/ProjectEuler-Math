@@ -31,8 +31,8 @@ public class KmpAlgorithm {
                partialLength = matchTable[partialLength - 1];
             }
          } else {
-            if(partialLength != 0)
-               partialLength = matchTable[partialLength-1];
+            if (partialLength != 0)
+               partialLength = matchTable[partialLength - 1];
             else
                i++;
          }

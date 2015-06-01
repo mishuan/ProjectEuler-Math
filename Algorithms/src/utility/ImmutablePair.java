@@ -26,7 +26,7 @@ public class ImmutablePair<L, R> {
    @Override
    public boolean equals(Object other) {
       if (other instanceof ImmutablePair) {
-         ImmutablePair otherPair = (ImmutablePair) other;
+         ImmutablePair<?, ?> otherPair = (ImmutablePair<?, ?>) other;
          return ((this.right == otherPair.right || (this.right != null && otherPair.right != null && this.right
                .equals(otherPair.right))) && (this.left == otherPair.left || (this.left != null && otherPair.left != null && this.left
                .equals(otherPair.left))));

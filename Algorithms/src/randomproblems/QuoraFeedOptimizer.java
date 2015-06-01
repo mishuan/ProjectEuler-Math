@@ -62,43 +62,42 @@ public class QuoraFeedOptimizer {
       Feed[][] dpGrid = new Feed[numOfItems + 1][windowSize + 1];
       ArrayList<Integer> emptyList = new ArrayList<Integer>();
 
+      // initialize dp grid
       Feed emptyFeed = new Feed(emptyList);
       for (int i = 0; i <= windowSize; i++)
          dpGrid[0][i] = emptyFeed;
 
+      // run knapsack dp
       for (int i = 0; i < numOfItems; i++) {
-         int currSize = items[i].size;
-         int currScore = items[i].score;
          for (int j = 0; j <= windowSize; j++) {
             Feed curr = dpGrid[i][j];
-            int prevJ = j - currSize;
+            int prevJ = j - items[i].size;
             int nextI = i + 1;
-            int newTotalScore = j - currSize < 0 ? 0 : dpGrid[i][prevJ].totalScore + currScore;
-            if (curr.totalScore > newTotalScore)
+            int newTotalScore = prevJ < 0 ? 0 : dpGrid[i][prevJ].totalScore + items[i].score;;
+            if (curr.totalScore > newTotalScore || newTotalScore == 0) {
                dpGrid[nextI][j] = curr;
-            else {
-               if (newTotalScore == 0)
-                  dpGrid[nextI][j] = curr;
-               else if (curr.totalScore == newTotalScore && isChooseCurr(curr.items, dpGrid[i][prevJ].items))
-                  dpGrid[nextI][j] = curr;
-               else {
-                  Feed feed = new Feed(dpGrid[i][prevJ].items);
-                  feed.items.add(items[i].id);
-                  feed.totalScore = newTotalScore;
-                  dpGrid[nextI][j] = feed;
-               }
+            } else if (curr.totalScore == newTotalScore && isChooseCurr(curr.items, dpGrid[i][prevJ].items)) {
+               dpGrid[nextI][j] = curr;
+            } else {
+               Feed feed = new Feed(dpGrid[i][prevJ].items);
+               feed.items.add(items[i].id);
+               feed.totalScore = newTotalScore;
+               dpGrid[nextI][j] = feed;
             }
          }
       }
-      int maxScore = dpGrid[numOfItems][windowSize].totalScore;
-      ArrayList<Integer> list = dpGrid[numOfItems][windowSize].items;
+      return resultString(dpGrid[numOfItems][windowSize]);
+   }
+   
+   public static String resultString(Feed feed){
+      ArrayList<Integer> list = feed.items;
       StringBuffer sb = new StringBuffer();
-      sb.append(maxScore).append(' ').append(list.size());
+      sb.append(feed.totalScore).append(' ').append(list.size());
       for (int i : list)
          sb.append(' ').append(i);
       return sb.toString().trim();
    }
-
+   
    public static void run(Scanner in) {
       eventsCount = in.nextInt();
       timeRange = in.nextInt();
@@ -108,12 +107,14 @@ public class QuoraFeedOptimizer {
       for (int i = 0; i < eventsCount; i++) {
          char eventType = in.next().charAt(0);
          int timeStamp = in.nextInt();;
-         checkQueue(timeStamp);
+
          if (eventType == 'S') {
             storyQueue.add(new Story(timeStamp, in.nextInt(), in.nextInt(), storyId));
             storyId++;
-         } else
+         } else {
+            checkQueue(timeStamp);
             generateFeed();
+         }
       }
    }
 
@@ -133,10 +134,10 @@ public class QuoraFeedOptimizer {
 
          Random rand = new Random(0x32423);
          StringBuilder sb = new StringBuilder();
-         sb.append("1000 100 1000\n");
-         for (int i = 0; i < 1000; i += 2) {
-            sb.append('S').append(' ').append(i).append(' ').append(rand.nextInt(500)).append(' ').append(rand.nextInt(100))
-                  .append('\n');
+         sb.append("5000 1000 1000\n");
+         for (int i = 0; i < 5000; i += 2) {
+            sb.append('S').append(' ').append(i).append(' ').append(rand.nextInt(2000)).append(' ')
+                  .append(rand.nextInt(2000)).append('\n');
             sb.append('R').append(' ').append(i + 1).append('\n');
          }
          long t0 = System.currentTimeMillis();
