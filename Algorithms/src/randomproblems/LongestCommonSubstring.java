@@ -19,6 +19,11 @@ public class LongestCommonSubstring {
             }
          }
       }
+      for (int i = 0; i < seq1Length; i++) {
+         for (int j = 0; j < seq2Length; j++)
+            System.out.print(grid[i][j] + " ");
+         System.out.println();
+      }
       return largestSequence;
    }
 

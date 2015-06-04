@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.io.LineNumberReader;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 
 final public class CommonMethods {
@@ -30,6 +33,32 @@ final public class CommonMethods {
          }
       }
       return isPrime;
+   }
+
+   public static List<Integer> stringToList(String in) {
+      String[] strings = in.split(" ");
+      List<Integer> list = new ArrayList<Integer>(strings.length);
+      for (String s : strings)
+         list.add(Integer.valueOf(s));
+      return list;
+   }
+
+   public static Integer[] stringToInteger(String in) {
+      String[] strings = in.split(" ");
+      int len = strings.length;
+      Integer[] arr = new Integer[len];
+      for (int i = 0; i < len; i++)
+         arr[i] = Integer.valueOf(strings[i]);
+      return arr;
+   }
+
+   public static int[] stringToInt(String in) {
+      String[] strings = in.split(" ");
+      int len = strings.length;
+      int[] arr = new int[len];
+      for (int i = 0; i < len; i++)
+         arr[i] = Integer.valueOf(strings[i]);
+      return arr;
    }
 
    public static ArrayList<Integer> getPrimeList(boolean[] primes) {
@@ -310,5 +339,76 @@ final public class CommonMethods {
       } catch (IOException e) {
          e.getStackTrace();
       }
+   }
+
+   public static int selectKth(Integer[] in, int n) {
+      List<Integer> list = Arrays.asList(in);
+      return recurse(list, n - 1);
+   }
+
+   public static int quickselect(int[] G, int k) {
+      return quickselect(G, 0, G.length - 1, k - 1);
+   }
+
+   private static int quickselect(int[] G, int first, int last, int k) {
+      if (first <= last) {
+         int pivot = partition(G, first, last);
+         if (pivot == k)
+            return G[k];
+         if (pivot > k)
+            return quickselect(G, first, pivot - 1, k);
+         return quickselect(G, pivot + 1, last, k);
+      }
+      return Integer.MIN_VALUE;
+   }
+
+   private static int partition(int[] G, int first, int last) {
+      int pivot = first + new Random().nextInt(last - first + 1);
+      swap(G, last, pivot);
+      for (int i = first; i < last; i++) {
+         if (G[i] > G[last]) {
+            swap(G, i, first);
+            first++;
+         }
+      }
+      swap(G, first, last);
+      return first;
+   }
+
+   public static int recurse(List<Integer> in, int n) {
+      if (in.size() == 1)
+         return in.get(0);
+      List<Integer> smaller = new ArrayList<Integer>();
+      List<Integer> larger = new ArrayList<Integer>();
+      for (int i : in)
+         if (i > in.get(n))
+            larger.add(i);
+         else
+            smaller.add(i);
+      if (larger.isEmpty() && in.size() == smaller.size())
+         return smaller.get(0);
+      return smaller.size() > n ? recurse(smaller, n) : recurse(larger, n - smaller.size());
+   }
+
+   public static void swap(int[] G, int x, int y) {
+      int tmp = G[x];
+      G[x] = G[y];
+      G[y] = tmp;
+   }
+
+   public static int binarySearch(int[] arr, int val) {
+      int i = arr.length / 2;
+      int right = 0;
+      int left = arr.length;
+      while (right <= left) {
+         i = (left - right) / 2;
+         if (val > arr[i])
+            right = i + 1;
+         else if (val < arr[i])
+            left = i - 1;
+         else
+            return i;
+      }
+      return -1;
    }
 }
