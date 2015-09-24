@@ -1,3 +1,4 @@
+*.DS_Store
 #C++
 #Compiled Object files
 *.slo
@@ -27,6 +28,9 @@
 *.war
 *.ear
 *.class
+
+# Intellij ignore
+*.idea
 
 # eclipse specific git ignore
 *.pydevproject
