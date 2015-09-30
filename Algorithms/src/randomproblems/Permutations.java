@@ -8,8 +8,11 @@ public class Permutations {
 
   public static void main(String args[]) {
     list = new ArrayList<>();
-    permute("abc", 1);
+    permuteString("abc");
     System.out.println(list.toString());
+  }
+  public static void permuteString(String s){
+    permute(s, 1);
   }
 
   public static void permute(String s, int n) {
