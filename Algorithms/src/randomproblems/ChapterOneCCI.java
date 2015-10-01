@@ -1,6 +1,6 @@
 package randomproblems;
 
-public class ChapterOne {
+public class ChapterOneCCI {
   public static String Q1_6(String s) {
     char[] chars = s.toCharArray();
     char temp = chars[0];
