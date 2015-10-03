@@ -1,4 +1,4 @@
-package randomproblems;
+package cci;
 
 /**
  * Created by ilikecalculus on 2015-09-24.
