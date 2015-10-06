@@ -19,16 +19,13 @@ final public class CommonMethods {
       boolean[] isPrime = new boolean[limit + 1];
       // Sieve of Eratosthenes
       if (limit >= 2) {
-         for (int i = 2; i <= limit; i++) {
+         for (int i = 2; i <= limit; i++)
             isPrime[i] = true;
-         }
          int currentInt = 2;
-         while (currentInt <= limit) {
-            if (isPrime[currentInt] && (long) currentInt * currentInt <= limit) {
-               for (int i = currentInt * currentInt; i <= limit; i += currentInt) {
+         while (currentInt <= limit){
+            if (isPrime[currentInt] && (long) currentInt * currentInt <= limit)
+               for (int i = currentInt * currentInt; i <= limit; i += currentInt)
                   isPrime[i] = false;
-               }
-            }
             currentInt++;
          }
       }
