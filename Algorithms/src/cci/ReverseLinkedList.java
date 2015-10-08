@@ -41,7 +41,6 @@ public class ReverseLinkedList {
   }
 
   public static void reverse() {
-    Node last = list.head;
     Node newHead = new Node();
     Node next = list.head;
     while (next.next != null) {
@@ -51,7 +50,7 @@ public class ReverseLinkedList {
       next = temp;
     }
     next.next = newHead;
-    last.next = null;
+    list.head.next = null;
     list.head = next;
   }
 
