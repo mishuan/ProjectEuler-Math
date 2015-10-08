@@ -4,15 +4,6 @@ package cci;
  * Created by ilikecalculus on 2015-09-24.
  */
 
-class Node {
-  Node next;
-  int value;
-
-  public String print() {
-    return next != null ? value + " " + next.print() : String.valueOf(value);
-  }
-}
-
 class LinkedList {
   Node head;
 }
@@ -35,7 +26,7 @@ public class ReverseLinkedList {
     for (int i = 1; i < 10; i++) {
       Node newNode = new Node();
       newNode.value = i;
-      curr.next = newNode;
+      curr.ptr1 = newNode;
       curr = newNode;
     }
   }
@@ -43,14 +34,14 @@ public class ReverseLinkedList {
   public static void reverse() {
     Node newHead = new Node();
     Node next = list.head;
-    while (next.next != null) {
-      Node temp = next.next;
-      next.next = newHead;
+    while (next.ptr1 != null) {
+      Node temp = next.ptr1;
+      next.ptr1 = newHead;
       newHead = next;
       next = temp;
     }
-    next.next = newHead;
-    list.head.next = null;
+    next.ptr1 = newHead;
+    list.head.ptr1 = null;
     list.head = next;
   }
 
@@ -58,7 +49,7 @@ public class ReverseLinkedList {
     Node curr = list.head;
     while (curr != null) {
       System.out.println(curr.value);
-      curr = curr.next;
+      curr = curr.ptr1;
     }
   }
 }

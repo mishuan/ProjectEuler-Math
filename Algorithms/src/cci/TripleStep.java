@@ -25,7 +25,6 @@ public class TripleStep {
     for (int i = 1; i <= 3; i++) {
       int next = n - i;
       if (next >= 0) {
-        //System.out.println(n + " " + next);
         if (cache[next] == 0)
           cache[n] += recurse(next);
         else

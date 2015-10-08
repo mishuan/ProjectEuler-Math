@@ -13,15 +13,15 @@ public class NthUglyNumber {
   }
 
   public static int findNthUglyNumber(int n) {
-    PriorityQueue<Long> q = new PriorityQueue<>();
-    q.add(1l);
+    PriorityQueue<Integer> q = new PriorityQueue<>();
+    q.add(1);
     for(int i = 1; i < n; i++) {
-      Long curr = q.poll();
+      int curr = q.poll();
       while(!q.isEmpty() && q.peek() == curr) q.poll();
       q.add(curr*2);
       q.add(curr*3);
       q.add(curr*5);
     }
-    return Integer.parseInt(q.poll());
+    return q.poll();
   }
 }
