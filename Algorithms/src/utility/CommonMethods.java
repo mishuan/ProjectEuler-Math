@@ -350,10 +350,8 @@ final public class CommonMethods {
   private static int quickselect(int[] G, int first, int last, int k) {
     if (first <= last) {
       int pivot = partition(G, first, last);
-      if (pivot == k)
-        return G[k];
-      if (pivot > k)
-        return quickselect(G, first, pivot - 1, k);
+      if (pivot == k) return G[k];
+      if (pivot > k) return quickselect(G, first, pivot - 1, k);
       return quickselect(G, pivot + 1, last, k);
     }
     return Integer.MIN_VALUE;
@@ -375,15 +373,12 @@ final public class CommonMethods {
   public static int recurse(List<Integer> in, int n) {
     if (in.size() == 1)
       return in.get(0);
-    List<Integer> smaller = new ArrayList<Integer>();
-    List<Integer> larger = new ArrayList<Integer>();
+    List<Integer> smaller = new ArrayList<>();
+    List<Integer> larger = new ArrayList<>();
     for (int i : in)
-      if (i > in.get(n))
-        larger.add(i);
-      else
-        smaller.add(i);
-    if (larger.isEmpty() && in.size() == smaller.size())
-      return smaller.get(0);
+      if (i > in.get(n)) larger.add(i);
+      else smaller.add(i);
+    if (larger.isEmpty() && in.size() == smaller.size()) return smaller.get(0);
     return smaller.size() > n ? recurse(smaller, n) : recurse(larger, n - smaller.size());
   }
 
